@@ -1,0 +1,327 @@
+<title>Proposta Agenda Seu José</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: documento de proposta em coluna única, com faixa de pacotes em grade e uma "comanda" de horários como detalhe da barbearia */
+:root {
+  --bg: #eef0ec;
+  --surface: #f8f9f6;
+  --ink: #1b2220;
+  --muted: #5a6561;
+  --line: #d3d8d2;
+  --accent: #9e2b25;
+  --accent-soft: #f3e2df;
+  --brass: #8a6a2c;
+  --on-accent: #fff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141917; --surface: #1c2220; --ink: #e8ebe7; --muted: #9ba6a1; --line: #2e3633;
+    --accent: #e0675d; --accent-soft: #3a2220; --brass: #d0ad68; --on-accent: #1b0d0c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141917; --surface: #1c2220; --ink: #e8ebe7; --muted: #9ba6a1; --line: #2e3633;
+  --accent: #e0675d; --accent-soft: #3a2220; --brass: #d0ad68; --on-accent: #1b0d0c;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding-block: 48px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 56px;
+}
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass);
+}
+section { display: grid; gap: 20px; }
+.muted { color: var(--muted); }
+
+/* Cabeçalho */
+.head { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.9rem; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.lead { font-size: 1.15rem; color: var(--ink); }
+
+/* Problema x solução */
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.compare > div { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 6px; display: grid; gap: 10px; align-content: start; }
+.compare .after { background: var(--surface); border-color: var(--brass); }
+.compare ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+
+/* Comanda: detalhe da barbearia */
+.ticket {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 0;
+  border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface);
+}
+.ticket .steps { padding: 24px; display: grid; gap: 16px; align-content: start; }
+.step { display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; }
+.step .n {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--mono); font-size: 0.85rem; background: var(--accent-soft); color: var(--accent);
+}
+.step p { font-size: 0.95rem; }
+.slots { border-left: 1px dashed var(--line); padding: 24px; display: grid; gap: 14px; align-content: start; }
+.slots-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+.slots-head b { color: var(--ink); }
+.grid-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+.slot {
+  font-family: var(--mono); font-size: 0.85rem; text-align: center; padding: 8px 0;
+  border: 1px solid var(--line); border-radius: 4px; font-variant-numeric: tabular-nums;
+}
+.slot.busy { color: var(--muted); text-decoration: line-through; opacity: 0.55; }
+.slot.pick { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.reminder {
+  font-size: 0.9rem; padding: 12px 14px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line);
+}
+.reminder .who { font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 2px; }
+@media (max-width: 640px) {
+  .ticket { grid-template-columns: 1fr; }
+  .slots { border-left: 0; border-top: 1px dashed var(--line); }
+}
+
+/* Itens incluídos */
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 32px; }
+.features div { display: grid; gap: 4px; min-width: 0; }
+.features h3 { font-size: 1rem; }
+.features p { font-size: 0.95rem; color: var(--muted); }
+
+/* Pacotes */
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; align-items: stretch; }
+.plan {
+  border: 1px solid var(--line); border-radius: 6px; padding: 24px; display: grid; gap: 16px;
+  grid-template-rows: auto auto 1fr; background: var(--bg); min-width: 0;
+}
+.plan.rec { border: 2px solid var(--accent); background: var(--surface); }
+.plan-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.badge {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--accent); color: var(--on-accent); padding: 3px 8px; border-radius: 3px;
+}
+.price { display: grid; gap: 2px; font-variant-numeric: tabular-nums; }
+.price .big { font-family: var(--display); font-size: 1.9rem; font-weight: 800; line-height: 1.1; }
+.price .big small { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+.price .setup { font-size: 0.9rem; color: var(--muted); }
+.plan ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 0.93rem; align-content: start; }
+.plan li.plus { list-style: none; margin-left: -1.1em; font-weight: 600; color: var(--brass); }
+
+/* Conta */
+.math {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+}
+.math > div { background: var(--surface); padding: 20px; display: grid; gap: 4px; }
+.math .v { font-family: var(--display); font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.math .v.good { color: var(--accent); }
+.math .l { font-size: 0.85rem; color: var(--muted); }
+
+/* Cronograma */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.timeline div { border-top: 3px solid var(--brass); padding-top: 12px; display: grid; gap: 4px; }
+.timeline .w { font-family: var(--mono); font-size: 0.8rem; color: var(--brass); }
+.timeline p { font-size: 0.95rem; }
+
+/* Condições */
+.terms { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+.close {
+  padding: 28px; border-radius: 6px; background: var(--accent); color: var(--on-accent); display: grid; gap: 10px;
+}
+.close p { color: var(--on-accent); }
+.sign { font-size: 0.9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 24px; }
+</style>
+
+<main class="wrap">
+
+  <header class="head">
+    <span class="eyebrow">Proposta comercial · Barbearia Seu José</span>
+    <h1>Agenda online para a Seu José, integrada ao site que já está no ar</h1>
+    <p class="lead">Seus clientes marcam o horário sozinhos, a qualquer hora, com o barbeiro que preferem. A equipe para de responder mensagem de agendamento e as faltas caem com lembrete automático.</p>
+    <div class="meta">
+      <span>Para <b>Barbearia Seu José</b>, Rua Piratininga, 487, São Caetano do Sul</span>
+      <span>Data <b>18/11/2026</b></span>
+      <span>Validade <b>15 dias</b></span>
+    </div>
+  </header>
+
+  <section>
+    <span class="eyebrow">Hoje e depois</span>
+    <h2>O que muda no dia a dia</h2>
+    <div class="compare">
+      <div>
+        <h3>Como funciona hoje</h3>
+        <ul>
+          <li>O botão "Agendar" do site abre o WhatsApp e alguém precisa responder.</li>
+          <li>Mensagens que chegam à noite ou no meio de um corte esperam resposta, e parte desses clientes desiste.</li>
+          <li>Os horários livres de cada barbeiro ficam na cabeça ou no caderno.</li>
+          <li>Quando o cliente esquece, a cadeira fica vazia e ninguém é avisado a tempo.</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>Com a agenda online</h3>
+        <ul>
+          <li>O cliente vê os horários realmente livres e confirma em menos de um minuto.</li>
+          <li>O site agenda 24 horas por dia, inclusive domingo, quando a barbearia está fechada.</li>
+          <li>Cada barbeiro tem a própria agenda, com folgas e bloqueios.</li>
+          <li>Lembrete automático no WhatsApp na véspera, com opção de remarcar.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Para o cliente</span>
+    <h2>Quatro toques do site até a cadeira</h2>
+    <div class="ticket">
+      <div class="steps">
+        <div class="step"><span class="n">1</span><p><b>Escolhe o serviço.</b> Corte, barba, combo ou adicionais, com preço e duração na tela.</p></div>
+        <div class="step"><span class="n">2</span><p><b>Escolhe o barbeiro</b> ou "qualquer um disponível".</p></div>
+        <div class="step"><span class="n">3</span><p><b>Escolhe o horário</b> entre os que estão livres de verdade.</p></div>
+        <div class="step"><span class="n">4</span><p><b>Confirma com nome e WhatsApp.</b> Recebe a confirmação na hora e o lembrete na véspera.</p></div>
+      </div>
+      <div class="slots" aria-label="Exemplo de tela de horários">
+        <div class="slots-head"><span>Exemplo · <b>Corte · 40 min</b> com <b>Adriel</b></span><span>Sexta, 20/11</span></div>
+        <div class="grid-slots">
+          <span class="slot busy">10:00</span>
+          <span class="slot busy">10:40</span>
+          <span class="slot">11:20</span>
+          <span class="slot busy">13:00</span>
+          <span class="slot pick">13:40</span>
+          <span class="slot">14:20</span>
+          <span class="slot busy">15:00</span>
+          <span class="slot">15:40</span>
+          <span class="slot busy">16:20</span>
+          <span class="slot">17:00</span>
+          <span class="slot busy">17:40</span>
+          <span class="slot">18:20</span>
+        </div>
+        <div class="reminder">
+          <span class="who">Lembrete enviado na quinta às 18h</span>
+          Olá, Rafael! Lembrete do seu corte amanhã às 13:40 com o Adriel na Seu José. Precisa remarcar? Toque aqui.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Escopo</span>
+    <h2>O que está incluído</h2>
+    <div class="features">
+      <div><h3>Página de agendamento no site</h3><p>No mesmo visual do site atual. Todos os botões "Agendar" passam a levar para ela.</p></div>
+      <div><h3>Agenda por barbeiro</h3><p>Daniel, Adriel, Joéber, Wesley e Gilberto, cada um com seus dias, horários e folgas.</p></div>
+      <div><h3>Serviços com duração real</h3><p>O sistema reserva o tempo certo de cada serviço: 40 min para corte, 3 horas para platinado, e assim por diante.</p></div>
+      <div><h3>Painel da barbearia</h3><p>Pelo celular: agenda do dia, encaixes, bloqueio de horário, marcação de falta.</p></div>
+      <div><h3>Lembrete e remarcação</h3><p>Mensagem automática no WhatsApp na véspera. O cliente remarca ou cancela sozinho e o horário volta a ficar livre.</p></div>
+      <div><h3>Assinantes identificados</h3><p>Clientes dos planos ilimitados aparecem marcados na agenda, sem cobrança no agendamento.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Investimento</span>
+    <h2>Três pacotes</h2>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-top"><h3>Essencial</h3></div>
+        <div class="price"><span class="big">R$ 99<small>/mês</small></span><span class="setup">+ R$ 900 de implantação</span></div>
+        <ul>
+          <li>Página de agendamento no site</li>
+          <li>Agenda por barbeiro e por serviço</li>
+          <li>Painel da barbearia pelo celular</li>
+          <li>Confirmação na hora para o cliente</li>
+          <li>Hospedagem, manutenção e suporte</li>
+        </ul>
+      </div>
+      <div class="plan rec">
+        <div class="plan-top"><h3>Completo</h3><span class="badge">Recomendado</span></div>
+        <div class="price"><span class="big">R$ 179<small>/mês</small></span><span class="setup">+ R$ 1.400 de implantação</span></div>
+        <ul>
+          <li class="plus">Tudo do Essencial, mais:</li>
+          <li>Lembrete automático no WhatsApp na véspera</li>
+          <li>Remarcação e cancelamento pelo cliente</li>
+          <li>Assinantes marcados na agenda</li>
+          <li>Relatório mensal: atendimentos, serviços mais pedidos, faltas</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <div class="plan-top"><h3>Completo + Google</h3></div>
+        <div class="price"><span class="big">R$ 249<small>/mês</small></span><span class="setup">+ R$ 1.900 de implantação</span></div>
+        <ul>
+          <li class="plus">Tudo do Completo, mais:</li>
+          <li>Perfil da Empresa no Google revisado: fotos, horários, serviços</li>
+          <li>Botão de agendar direto no Google Maps</li>
+          <li>Pedido automático de avaliação após o atendimento</li>
+          <li>Ajustes no site para aparecer melhor em "barbearia em São Caetano"</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">As mensagens de WhatsApp são enviadas pela API oficial do WhatsApp Business, que cobra centavos por mensagem, pagos diretamente à Meta.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">A conta</span>
+    <h2>Quanto custa uma cadeira vazia</h2>
+    <p>Com os preços atuais da tabela, basta evitar uma falta de corte por semana para o pacote Completo se pagar e sobrar.</p>
+    <div class="math">
+      <div><span class="v">R$ 70</span><span class="l">um corte que deixa de ser perdido</span></div>
+      <div><span class="v">× 4</span><span class="l">uma falta evitada por semana</span></div>
+      <div><span class="v">R$ 280</span><span class="l">recuperados por mês</span></div>
+      <div><span class="v good">R$ 179</span><span class="l">mensalidade do pacote Completo</span></div>
+    </div>
+    <p class="muted">A conta não inclui os clientes novos que marcam fora do horário de atendimento, nem o tempo da equipe que deixa de ir para o WhatsApp.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">Prazo</span>
+    <h2>No ar em três semanas</h2>
+    <div class="timeline">
+      <div><span class="w">Semana 1</span><h3>Configuração</h3><p>Cadastro de serviços, barbeiros, horários e folgas. Página no visual do site.</p></div>
+      <div><span class="w">Semana 2</span><h3>Teste com a equipe</h3><p>Os barbeiros usam o painel em agendamentos reais, ainda junto com o WhatsApp.</p></div>
+      <div><span class="w">Semana 3</span><h3>Lançamento</h3><p>Os botões do site passam para a agenda. Post e mensagem para avisar os clientes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Condições</span>
+    <h2>Como funciona o pagamento</h2>
+    <ul class="terms">
+      <li>Implantação: 50% na aprovação e 50% no lançamento, por Pix ou parcelada em até 3 vezes.</li>
+      <li>Mensalidade a partir do mês do lançamento, com hospedagem, manutenção e suporte pelo WhatsApp.</li>
+      <li>Mudanças de preço, serviço, barbeiro ou horário estão incluídas na mensalidade.</li>
+      <li>Fidelidade mínima de 3 meses. Depois disso, cancela quando quiser, com 30 dias de aviso.</li>
+      <li>Os dados dos clientes pertencem à barbearia e são entregues em planilha se o serviço for cancelado.</li>
+    </ul>
+  </section>
+
+  <section class="close">
+    <h2>Próximo passo</h2>
+    <p>Escolha o pacote e marcamos 30 minutos na barbearia para levantar os horários de cada barbeiro. A partir daí, a agenda fica pronta em três semanas.</p>
+  </section>
+
+  <footer class="sign">
+    <span>Proposta preparada por <b>[seu nome]</b></span>
+    <span>Contato: <b>[seu WhatsApp]</b></span>
+    <span>Responsável pelo site atual da Seu José</span>
+  </footer>
+
+</main>
